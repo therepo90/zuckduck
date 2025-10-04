@@ -9,3 +9,62 @@ html {
 body {
     font-size: 16px; ;
 }
+
+.split-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+.left-panel {
+  flex: 3;
+  border-right: 3px solid #2d2d2d;
+  background: #008080;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-width: 0;
+}
+
+.right-panel {
+  flex: 1;
+  border-left: 3px solid #2d2d2d;
+  background: #e0e0e0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.desktop-icons {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin: 32px 0 0 32px;
+}
+
+.icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.icon img {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 8px;
+  border: 2px solid #fff;
+  background: #c0c0c0;
+  box-shadow: 2px 2px 0 #888;
+}
+
+.icon span {
+  color: #fff;
+  font-size: 15px;
+  text-shadow: 1px 1px 0 #000;
+  margin-top: 2px;
+  font-family: 'Open Sans', Arial, sans-serif;
+}
