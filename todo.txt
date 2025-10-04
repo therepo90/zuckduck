@@ -1,0 +1,4 @@
+Inne ext:
+ <div class="hidden">
+        .stl, .sub, .sbv, .ass, .ssa, .vtt, .idx, .txt, .ass
+    </div>
