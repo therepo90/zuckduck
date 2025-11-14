@@ -12,7 +12,7 @@ function getResolution(scene){
 }
 
 const createBgPostProcess = (scene: BABYLON.Scene, camera: BABYLON.Camera) => {
-    var postProcess = new BABYLON.PostProcess("bg", "./bg.shader", ["iResolution", "iTime", "mouse"], ["iChannel0"], 1.0, camera);
+    var postProcess = new BABYLON.PostProcess("bg", "./bg.shader", ["iResolution", "iTime", "iMouse"], ["iChannel0"], 1.0, camera);
     var iChannel0 = new BABYLON.Texture('main.JPG', scene);
     let mousePos = new BABYLON.Vector2(0,0); // left-bottom of canvas is (0,0)
     document.addEventListener('mousemove', function(e) {
