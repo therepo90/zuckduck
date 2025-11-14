@@ -25,6 +25,10 @@
     "parcel-bundler": "^1.12.5",
     "parcel-plugin-glsl": "^0.1.0",
     "parcel-plugin-inline-source": "^1.0.0",
-    "sass": "^1.83.4"
+    "sass": "^1.83.4",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "babylonjs": "^8.37.0"
   }
 }
