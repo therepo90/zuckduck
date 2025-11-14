@@ -175,9 +175,12 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
   //if(sq> 0.98){
     a=1.-smoothstep(0.98,0.99,sq);
   //}
-  //a = 1.-pow(sq,3.);
+   //a = 1.-pow(sq,3.);
   //}
-
+    fragColor.a=a;
+    /* if(sq> 0.98){
+    discard;
+    } */
 }
 
 void main()

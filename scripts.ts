@@ -1,5 +1,6 @@
 import * as BABYLON from 'babylonjs';
 
+
 async function loadShader(url) {
     const response = await fetch(url);
     return await response.text();
@@ -13,6 +14,7 @@ function getResolution(scene){
 
 const createBgPostProcess = (scene: BABYLON.Scene, camera: BABYLON.Camera) => {
     var postProcess = new BABYLON.PostProcess("bg", "./bg.shader", ["iResolution", "iTime", "iMouse", 'laserTint'], ["iChannel0"], 1.0, camera);
+    postProcess.alphaMode = BABYLON.Engine.ALPHA_COMBINE;
     var iChannel0 = new BABYLON.Texture('main.JPG', scene);
     let mousePos = new BABYLON.Vector2(0,0); // left-bottom of canvas is (0,0)
     document.addEventListener('mousemove', function(e) {
