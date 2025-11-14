@@ -5,14 +5,16 @@
   "main": "index.html",
   "scripts": {
     "start": "rm -rf dist && parcel index.html",
-    "build": "rm -rf dist && parcel build index.html --experimental-scope-hoisting",
-    "build:prod": "rm -rf docs/* && cross-env NODE_ENV=production LOCAL_DEV=false parcel build index.html --no-source-maps -t browser -d docs --no-minify --public-url ./ && cp CNAME docs && cp -r public/* docs/",
+    "copy-assets-plain": "sh ./copy-assets.sh",
+    "build": "rm -rf dist && npm run copy-assets-plain && parcel build index.html --experimental-scope-hoisting --no-minify",
+    "build:prod": "rm -rf docs/* && npm run copy-assets-plain && && cross-env NODE_ENV=production LOCAL_DEV=false parcel build index.html --no-source-maps -t browser -d docs  --no-minify --no-content-hash --public-url ./ && cp CNAME docs && cp -r assets/* docs/",
     "acp": "git add . && git commit -m \"x\" --allow-empty && git push -u",
     "deploy": "npm run build:prod && npm run acp"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=16"
   },
+  "assetsPath": "assets",
   "browserslist": "> 1%, last 2 versions, not dead",
   "keywords": [],
   "author": "",
@@ -26,9 +28,12 @@
     "parcel-plugin-glsl": "^0.1.0",
     "parcel-plugin-inline-source": "^1.0.0",
     "sass": "^1.83.4",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "parcel-plugin-asset-copier": "^1.1.0"
   },
   "dependencies": {
-    "babylonjs": "^8.37.0"
+    "assets": "^3.0.1",
+    "babylonjs": "^6.35.0",
+    "babylonjs-gui": "^6.35.0"
   }
 }

@@ -40,7 +40,7 @@ window.addEventListener('DOMContentLoaded', function () {
         scene.clearColor = new BABYLON.Color4(0.0, 0, 0, 0);
         var camera = new BABYLON.UniversalCamera('UniversalCamera', new BABYLON.Vector3(0, 0, -1), scene);
         camera.setTarget(BABYLON.Vector3.Zero());
-        //const pgPostProcess = createBgPostProcess(scene, camera);
+        const pgPostProcess = createBgPostProcess(scene, camera);
 
         return scene;
     };
