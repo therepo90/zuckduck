@@ -38,88 +38,12 @@
     <!--<script src="./src/circle.js" defer></script>-->
 </head>
 <body>
-<div class="split-container">
-    <div class="left-panel">
-        <div class="desktop-icons" id="desktop-icons">
-            <div class="icon" data-icon="facebook" style="top:0px;left:0px;">
-                <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="12" fill="#1877F3"/><path d="M32 24h-5v16h-6V24h-3v-5h3v-3c0-2.8 1.3-7 7-7l5 0v5h-3c-0.6 0-1 0.4-1 1v4h4.5l-0.5 5z" fill="#fff"/></svg>
-                <span>Facebook</span>
-            </div>
-            <div class="icon" data-icon="instagram" style="top:90px;left:0px;">
-                <svg viewBox="0 0 48 48">
-                  <defs>
-                    <radialGradient id="ig-gradient" cx="24" cy="24" r="24" gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stop-color="#fff" stop-opacity=".5"/>
-                      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
-                    </radialGradient>
-                  </defs>
-                  <rect width="48" height="48" rx="12" fill="#E1306C"/>
-                  <circle cx="24" cy="24" r="10" fill="url(#ig-gradient)"/>
-                  <circle cx="24" cy="24" r="7" fill="#E1306C"/>
-                  <circle cx="34" cy="14" r="2" fill="#fff"/>
-                </svg>
-                <span>Instagram</span>
-            </div>
-            <div class="icon" data-icon="twitter" style="top:180px;left:0px;">
-                <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="12" fill="#1DA1F2"/><path d="M38 16.5a8.6 8.6 0 0 1-2.36.65A4.13 4.13 0 0 0 37 15.1a8.27 8.27 0 0 1-2.61 1A4.14 4.14 0 0 0 24 19.5c0 .32.04.64.1.94A11.7 11.7 0 0 1 13 15.6a4.13 4.13 0 0 0 1.28 5.52 4.07 4.07 0 0 1-1.87-.52v.05a4.14 4.14 0 0 0 3.32 4.06c-.3.08-.62.13-.95.13-.23 0-.45-.02-.67-.06a4.15 4.15 0 0 0 3.87 2.88A8.3 8.3 0 0 1 12 33.1c-.54 0-1.07-.03-1.6-.09A11.7 11.7 0 0 0 18.29 35c7.55 0 11.68-6.26 11.68-11.68 0-.18-.01-.36-.02-.54A8.18 8.18 0 0 0 38 16.5z" fill="#fff"/></svg>
-                <span>Twitter</span>
-            </div>
-            <div class="icon" data-icon="trash" style="top:270px;left:0px;">
-                <svg viewBox="0 0 48 48">
-                  <rect width="48" height="48" rx="12" fill="#444"/>
-                  <rect x="14" y="18" width="20" height="16" rx="3" fill="#bbb" stroke="#888" stroke-width="2"/>
-                  <rect x="20" y="12" width="8" height="6" rx="2" fill="#888"/>
-                  <rect x="18" y="16" width="12" height="2" fill="#888"/>
-                  <rect x="22" y="22" width="2" height="8" fill="#888"/>
-                  <rect x="26" y="22" width="2" height="8" fill="#888"/>
-                </svg>
-                <span>Trash</span>
-            </div>
-        </div>
+<div class="container">
+    <div class="circle">
+
     </div>
-    <div class="right-panel">
-        <div class="content" id="content">
-            <div class="welcome" id="welcome">
-                <h1>Welcome to ZuckDuck</h1>
-                <p>Your one-stop solution for translating movie and series subtitles effortlessly.</p>
-                <button id="get-started">Get Started</button>
-            </div>
-            <div class="translator" id="translator" style="display:none;">
-                <h2>Subtitle Translator</h2>
-                <textarea id="source-text" placeholder="Paste your subtitles here..."></textarea>
-                <div class="language-selection">
-                    <div class="source-language">
-                        <label for="source-lang">Source Language:</label>
-                        <select id="source-lang">
-                            <option value="auto" selected>Auto Detect</option>
-                            <option value="en">English</option>
-                            <option value="es">Spanish</option>
-                            <option value="fr">French</option>
-                            <option value="de">German</option>
-                            <option value="zh">Chinese</option>
-                            <option value="ru">Russian</option>
-                        </select>
-                    </div>
-                    <div class="target-language">
-                        <label for="target-lang">Target Language:</label>
-                        <select id="target-lang">
-                            <option value="pl" selected>Polski</option>
-                            <option value="en">English</option>
-                            <option value="es">Spanish</option>
-                            <option value="fr">French</option>
-                            <option value="de">German</option>
-                            <option value="zh">Chinese</option>
-                            <option value="ru">Russian</option>
-                        </select>
-                    </div>
-                </div>
-                <button id="translate">Translate</button>
-                <h3>Translated Subtitles</h3>
-                <textarea id="translated-text" placeholder="Your translated subtitles will appear here..." readonly></textarea>
-                <button id="download" style="display:none;">Download Subtitles</button>
-            </div>
-        </div>
-    </div>
+    Hello
+
 </div>
 </body>
 </html>
