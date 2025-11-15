@@ -1,4 +1,6 @@
+import './styles.less';
 import * as BABYLON from 'babylonjs';
+import * as bgShader from './assets/bg.shader.fragment.fx';
 
 
 async function loadShader(url) {
