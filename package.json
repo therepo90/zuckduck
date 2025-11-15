@@ -2,7 +2,7 @@
   "name": "zuckduck",
   "version": "1.0.0",
   "scripts": {
-    "start": "parcel index.html",
+    "start": "rm -rf dist && parcel index.html",
     "copy-assets-plain": "sh ./copy-assets.sh",
     "build": "npm run copy-assets-plain && parcel build index.html --no-optimize",
     "build:prod": "npm run copy-assets-plain && cross-env NODE_ENV=production LOCAL_DEV=false parcel build index.html --dist-dir docs --no-source-maps --no-optimize --public-url ./ && cp CNAME docs && cp -r assets/* docs/",
@@ -13,17 +13,16 @@
     "node": ">=16"
   },
   "browserslist": "> 1%, last 2 versions, not dead",
-
   "devDependencies": {
-    "parcel": "^2.12.0",
-    "@parcel/transformer-less": "^2.12.0",
     "@parcel/transformer-glsl": "^2.12.0",
-    "typescript": "^5.9.3",
-    "less": "^4.2.0",
+    "@parcel/transformer-less": "^2.12.0",
+    "@parcel/transformer-raw": "^2.16.1",
+    "cross-env": "^7.0.3",
     "eslint": "8",
-    "cross-env": "^7.0.3"
+    "less": "^4.2.0",
+    "parcel": "^2.12.0",
+    "typescript": "^5.9.3"
   },
-
   "dependencies": {
     "babylonjs": "^6.35.0",
     "babylonjs-gui": "^6.35.0"

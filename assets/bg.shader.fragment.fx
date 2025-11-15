@@ -118,7 +118,7 @@ void processBorder( out vec4 fragColor, in vec2 fragCoord, out float sqOut, in v
   vec2 mouse = iMouse.xy / iResolution.xy;
   vec3 col=vec3(0);
 
-  vec3 barCol=tint;//vec3(0.000,0.384,1.000);
+  vec3 barCol=vec3(1.000,1.0,0.000);
   float t = iTime;
 
   float squareSize = 0.98;
