@@ -118,7 +118,7 @@ void processBorder( out vec4 fragColor, in vec2 fragCoord, out float sqOut, in v
   vec2 mouse = iMouse.xy / iResolution.xy;
   vec3 col=vec3(0);
 
-  vec3 barCol=vec3(1.000,1.0,0.000);
+  vec3 barCol=tint;//vec3(1.000,1.0,0.000);
   float t = iTime;
 
   float squareSize = 0.98;
@@ -172,8 +172,11 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
   fragColor = mix(mainCol, borderColor, sq);
   //gl_FragColor=borderColor;
   float a=1.;
-  //if(sq> 0.98){
-    a=1.-smoothstep(0.98,0.99,sq);
+  if(sq> 0.92){
+    //fragColor.rgb = vec3(1.0,0.0,0.0);
+    a=1.-smoothstep(0.92,1.0,sq);
+  }
+    //a=1.-smoothstep(0.98,0.99,sq);
   //}
    //a = 1.-pow(sq,3.);
   //}

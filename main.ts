@@ -35,7 +35,7 @@ const createBgPostProcess = (scene: BABYLON.Scene, camera: BABYLON.Camera) => {
         effect.setVector2('iResolution', getResolution(scene))
         effect.setFloat('iTime', time)
         effect.setVector2('iMouse', mousePos);
-        effect.setVector3('laserTint', new BABYLON.Vector3(1.0, 0.384,1.000));
+        effect.setVector3('laserTint', new BABYLON.Vector3(0.0, 0.7,0.0));
     }
     return postProcess;
 };
