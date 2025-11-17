@@ -33,7 +33,7 @@ const createBgPostProcess = (scene: BABYLON.Scene, camera: BABYLON.Camera) => {
         time += scene.getEngine().getDeltaTime() * 0.001; // Convert milliseconds to seconds
         postProcess.getEffect().setTexture('iChannel0', iChannel0);
         effect.setVector2('iResolution', getResolution(scene))
-        effect.setFloat('iTime', time)
+        //effect.setFloat('iTime', time)
         effect.setVector2('iMouse', mousePos);
         effect.setVector3('laserTint', new BABYLON.Vector3(0.0, 0.7,0.0));
     }

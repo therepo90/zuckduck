@@ -107,7 +107,7 @@ float fancyScene(vec2 uv, vec2 center, float squareSize, float edge) {
 
   float yVal = smoothstep(squareSize-edge, squareSize, distY);
 
-  float isInsideSquare = xVal+ yVal - xVal*yVal;
+  float isInsideSquare = xVal+ yVal - xVal*yVal; // 0 wewnatrz kwadratu, 1 na zewnatrz, 0-1 pomiedzy
   return isInsideSquare;
 }
 
@@ -142,21 +142,21 @@ void processBorder( out vec4 fragColor, in vec2 fragCoord, out float sqOut, in v
   vec3 sqCol= sq*barCol* (1.+pow(sq,15.)); // fade to tint color fast.
   //col=mix(tex, sqCol,sq);
   col = sqCol;
-  col+=vec3(1.) * pow(sq,3.); // fade to white at the end
-  //col+=sq * 1. * 0.9;
+
+  //col+=vec3(1.) * pow(sq,3.); // fade to white at the end
+
 
 
   sqOut = sq;
   float a = 1.0;
-  //if(col.x > 1. && col.y > 1. && col.z > 1.){
-    //a =0.;
+  a = smoothstep(1.0,squareSize,sq);
+  //if(sq<{
+  //  col.rgb=vec3(0.0,0.0,1.0);
   //}
-  //a=0.1;
- /* if(sq < 0.1) {
-    a = 0.0;
-  }
-  a=0.;*/
-  //a = 1.-pow(sq,1.0);//1.0;
+  //if(sq <= 0.0){
+    //col.rgb = vec3(0.0);
+  //}
+    col*=a; // robi sie szare z jakiegos powodu
   fragColor = vec4(col,a);
 }
 
@@ -169,18 +169,24 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
   vec4 borderColor;
   float sq;
   processBorder(borderColor, vUV * iResolution.xy, sq, laserTint);
-  fragColor = mix(mainCol, borderColor, sq);
+
+  vec4 borderColor2;
+  float sq2;
+  processBorder(borderColor2, vUV * iResolution.xy * 2. - iResolution.xy * 0.5, sq2, vec3(1.0,0.0,0.0));
+
+  fragColor = borderColor*sq;//mix(mainCol, borderColor, sq);
+  fragColor += borderColor2*sq2;//mix(mainCol, borderColor2, sq2);
   //gl_FragColor=borderColor;
   float a=1.;
   if(sq> 0.92){
     //fragColor.rgb = vec3(1.0,0.0,0.0);
-    a=1.-smoothstep(0.92,1.0,sq);
+    //a=1.-smoothstep(0.92,1.0,sq);
   }
     //a=1.-smoothstep(0.98,0.99,sq);
   //}
    //a = 1.-pow(sq,3.);
   //}
-    fragColor.a=a;
+    //fragColor.a=a;
     /* if(sq> 0.98){
     discard;
     } */
