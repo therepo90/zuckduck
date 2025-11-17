@@ -100,7 +100,7 @@ void Unity_Lerp_float4(vec4 A, vec4 B, vec4 T, out vec4 Out)
   Out = mix(A, B, T);
 }
 
-float fancyScene(vec2 uv, vec2 center, float squareSize, float edge) {
+float spookyRect(vec2 uv, vec2 center, float squareSize, float edge) {
   float distX = abs(uv.x - center.x);
   float distY = abs(uv.y - center.y);
   float xVal = smoothstep(squareSize-edge, squareSize, distX);
@@ -136,7 +136,7 @@ void processBorder( out vec4 fragColor, in vec2 fragCoord, out float sqOut, in v
 
   vec2 changedUv = uv;
   changedUv+=sinVal;
-  float sq = fancyScene(changedUv, center, squareSize, edge);
+  float sq = spookyRect(changedUv, center, squareSize, edge);
 
   //vec3 tex =texture2D(iChannel0,uv).xyz * (abs(sin(iTime*0.3)) +0.5);
   vec3 sqCol= sq*barCol* (1.+pow(sq,15.)); // fade to tint color fast.
@@ -165,9 +165,24 @@ void processBorder( out vec4 fragColor, in vec2 fragCoord, out float sqOut, in v
   fragColor = vec4(col,a);
 }
 
+vec4 button( in vec2 uv) {
+    // use spookyRect
+    float edge = 0.02;
+    vec2 center = vec2(0.0, -0.9);
+    float squareSize = 0.5;
+    float sq = spookyRect(uv, center, squareSize, edge);
+    vec3 col = vec3(1.0, 0.5, 0.0) * sq;//
+    float a = 1.0;
+    a = smoothstep(1.0, 0.95, sq);
+    col*=a;
+    return vec4(col, a);
+}
+
 void mainImage(out vec4 fragColor, in vec2 fragCoord)
 {
   //fragColor = vec4(0,1.0,0,1.0);
+    vec2 uv = 2.0*(fragCoord-.5*iResolution.xy)/iResolution.xy;
+
 
   vec4 mainCol;
   //mainImage2(mainCol, vUV * iResolution.xy);
@@ -175,17 +190,22 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
   float sq;
   processBorder(borderColor, vUV * iResolution.xy, sq, laserTint);
 
-  //vec4 borderColor2;
-  //float sq2;
-  //vec2 btnUv = vUV * iResolution.xy * 2. - iResolution.xy * 0.5;
-  //btnUv.y*=2.5;
-  //btnUv.x*=0.9;
-  //processBorder(borderColor2, btnUv, sq2, vec3(1.0,0.0,0.0));
+  vec4 borderColor2;
+  float sq2;
+  vec2 btnUv = vUV * iResolution.xy * 2. - iResolution.xy * 0.5;
+  btnUv.y*=1.5;
+  btnUv.x*=0.9;
+  processBorder(borderColor2, btnUv, sq2, vec3(1.0,0.0,0.0));
 
-  fragColor = borderColor*sq;//mix(mainCol, borderColor, sq);
+  fragColor += borderColor*sq;//mix(mainCol, borderColor, sq);
+  fragColor += borderColor2*sq2;//mix(mainCol, borderColor, sq);
+
+//    vec2 btnUv = uv;
+//    btnUv.y*=3.;
+//  fragColor += button(btnUv);
   //fragColor += borderColor2*sq2;//mix(mainCol, borderColor2, sq2);
   //gl_FragColor=borderColor;
-  float a=1.;
+  //float a=1.;
   //if(sq> 0.92){
     //fragColor.rgb = vec3(1.0,0.0,0.0);
     //a=1.-smoothstep(0.92,1.0,sq);
