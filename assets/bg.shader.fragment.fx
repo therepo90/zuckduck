@@ -143,20 +143,25 @@ void processBorder( out vec4 fragColor, in vec2 fragCoord, out float sqOut, in v
   //col=mix(tex, sqCol,sq);
   col = sqCol;
 
-  //col+=vec3(1.) * pow(sq,3.); // fade to white at the end
+  col+=vec3(1.) * pow(sq,3.); // fade to white at the end
 
 
 
   sqOut = sq;
   float a = 1.0;
-  a = smoothstep(1.0,squareSize,sq);
+  a = smoothstep(1.0,0.99,sq);
   //if(sq<{
   //  col.rgb=vec3(0.0,0.0,1.0);
   //}
   //if(sq <= 0.0){
     //col.rgb = vec3(0.0);
   //}
-    col*=a; // robi sie szare z jakiegos powodu
+    //col*=a; // robi sie szare z jakiegos powodu
+
+    if(a<0.1){
+        col.rgb=vec3(0.0); // dziadostwo no ale zostaja se kolory ktore dodajemy, a chcemy je usunac. powinno byc inaczej jakos.
+    }
+    // Tu mozna fajnie przeplatac kolory.
   fragColor = vec4(col,a);
 }
 
@@ -170,18 +175,21 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
   float sq;
   processBorder(borderColor, vUV * iResolution.xy, sq, laserTint);
 
-  vec4 borderColor2;
-  float sq2;
-  processBorder(borderColor2, vUV * iResolution.xy * 2. - iResolution.xy * 0.5, sq2, vec3(1.0,0.0,0.0));
+  //vec4 borderColor2;
+  //float sq2;
+  //vec2 btnUv = vUV * iResolution.xy * 2. - iResolution.xy * 0.5;
+  //btnUv.y*=2.5;
+  //btnUv.x*=0.9;
+  //processBorder(borderColor2, btnUv, sq2, vec3(1.0,0.0,0.0));
 
   fragColor = borderColor*sq;//mix(mainCol, borderColor, sq);
-  fragColor += borderColor2*sq2;//mix(mainCol, borderColor2, sq2);
+  //fragColor += borderColor2*sq2;//mix(mainCol, borderColor2, sq2);
   //gl_FragColor=borderColor;
   float a=1.;
-  if(sq> 0.92){
+  //if(sq> 0.92){
     //fragColor.rgb = vec3(1.0,0.0,0.0);
     //a=1.-smoothstep(0.92,1.0,sq);
-  }
+  //}
     //a=1.-smoothstep(0.98,0.99,sq);
   //}
    //a = 1.-pow(sq,3.);
