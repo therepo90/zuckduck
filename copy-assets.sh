@@ -1,3 +1,5 @@
 #echo $SHELL #bin/bash?
 set -e
-cp assets/bg.shader.fragment.fx dist/bg.shader.fragment.fx
+# cp all /assets dir to /dist
+mkdir -p ./dist
+cp -r ./assets/* ./dist/

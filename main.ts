@@ -20,7 +20,7 @@ const createBgPostProcess = (scene: BABYLON.Scene, camera: BABYLON.Camera) => {
     BABYLON.Effect.ShadersStore["bgFragmentShader"] = bgShader;
     var postProcess = new BABYLON.PostProcess("bg", "bg", ["iResolution", "iTime", "iMouse", 'laserTint'], ["iChannel0"], 1.0, camera);
     postProcess.alphaMode = BABYLON.Engine.ALPHA_COMBINE;
-    var iChannel0 = new BABYLON.Texture('main.JPG', scene);
+    var iChannel0 = new BABYLON.Texture('fb.png', scene);
     let mousePos = new BABYLON.Vector2(0,0); // left-bottom of canvas is (0,0)
     document.addEventListener('mousemove', function(e) {
             mousePos = new BABYLON.Vector2( (e.pageX - canvas.offsetLeft) / canvas.width, 1.0 - (e.pageY - canvas.offsetTop) / canvas.height);
@@ -31,11 +31,11 @@ const createBgPostProcess = (scene: BABYLON.Scene, camera: BABYLON.Camera) => {
     postProcess.onApply = function (effect) {
         //console.log('rpobimy se apply');
         time += scene.getEngine().getDeltaTime() * 0.001; // Convert milliseconds to seconds
-        postProcess.getEffect().setTexture('iChannel0', iChannel0);
+        effect.setTexture('iChannel0', iChannel0);
         effect.setVector2('iResolution', getResolution(scene))
-        //effect.setFloat('iTime', time)
+        effect.setFloat('iTime', time)
         effect.setVector2('iMouse', mousePos);
-        effect.setVector3('laserTint', new BABYLON.Vector3(0.0, 0.7,0.0));
+        effect.setVector3('laserTint', new BABYLON.Vector3(0.043, 0.573, 0.969));
     }
     return postProcess;
 };

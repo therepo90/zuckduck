@@ -2,7 +2,7 @@
   "name": "zuckduck",
   "version": "1.0.0",
   "scripts": {
-    "start": "rm -rf dist && parcel index.html",
+    "start": "rm -rf dist && npm run copy-assets-plain && parcel index.html",
     "copy-assets-plain": "sh ./copy-assets.sh",
     "build": "npm run copy-assets-plain && parcel build index.html --no-optimize",
     "build:prod": "npm run copy-assets-plain && cross-env NODE_ENV=production LOCAL_DEV=false parcel build index.html --dist-dir docs --no-source-maps --no-optimize --public-url ./ && cp CNAME docs && cp -r assets/* docs/",
