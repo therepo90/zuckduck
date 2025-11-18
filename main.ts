@@ -1,6 +1,7 @@
 import './styles.less';
 import * as BABYLON from 'babylonjs';
 import * as bgShader from './assets/bg.shader.fragment.fx';
+import {api} from './config';
 
 function getResolution(scene){
     var c = scene.getEngine().getRenderingCanvas()
@@ -71,4 +72,50 @@ window.addEventListener('DOMContentLoaded', function () {
     }
     initCanvasEngine(canvas, fbCfg);
     initCanvasEngine(canvas2, instaCfg);
+
+    document.querySelector('#counter-btn-fb').addEventListener('click', function(e) {
+        fetch(
+        // @ts-ignore
+            `${api}/api/up`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    type: 'fb'
+                }),
+            });
+    });
+
+    document.querySelector('#counter-btn-ig').addEventListener('click', function(e) {
+        fetch(
+            // @ts-ignore
+            `${api}/api/up`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    type: 'ig'
+                }),
+            });
+    });
+
+    fetch(
+        // @ts-ignore
+        `${api}/api/stuff`,
+        {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }).then(res => {
+            return res.json()
+        }).then(res => {
+            document.querySelector('#counter-fb').textContent = res.fb;
+            document.querySelector('#counter-ig').textContent = res.ig;
+    })
+
 });
