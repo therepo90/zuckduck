@@ -99,11 +99,12 @@ vec3 laserComposition(vec2 uv, vec2 mouse) {
 
 }
 
-float spookyCircle(vec2 uv, vec2 center, float circleSize, float edge, out float sqOutInner) {
+float spookyCircle(vec2 uv, vec2 center, float circleSize, float edge, out float sqOutInner, out float sqOutOuter) {
     float dist = length(uv - center);
     float inner = smoothstep(circleSize - edge, circleSize, dist);
     float outer = 1.-smoothstep(circleSize, circleSize+edge, dist);
     sqOutInner = inner;
+    sqOutOuter = outer;
     return inner * outer;
 }
 
@@ -144,7 +145,8 @@ void processLogoCircle( out vec4 fragColor, in vec2 uv, out float sqOut, in vec3
 
     vec2 changedUv = uv;
     changedUv+=sinVal; // czyli nie uzywam tych fancy unity fns tylko tak. no spoko
-    float sq = spookyCircle(changedUv, center, circleSize, edge, sqOutInner);
+    float sqOutOuter;
+    float sq = spookyCircle(changedUv, center, circleSize, edge, sqOutInner, sqOutOuter);
 
     //vec3 tex =texture2D(iChannel0,uv).xyz * (abs(sin(iTime*0.3)) +0.5);
     vec3 sqCol= sq*barCol* (1.+pow(sq,15.)); // fade to tint color fast.
@@ -154,13 +156,14 @@ void processLogoCircle( out vec4 fragColor, in vec2 uv, out float sqOut, in vec3
 
     col = sqCol;
 
-    col+=vec3(1.) * pow(sq,8.); // fade to white at the end
+    col+=vec3(1.)* pow(sq,6.);// * pow(sqOutOuter,3.); // fade to white at the end
+    //col+=vec3(1.)* pow(sqOutOuter,6.);// * pow(sqOutOuter,3.); // fade to white at the end
 
 
 
     sqOut = sq; //we interested only in inner
 
-    //fragColor = vec4(sqOutInner,sqOutInner,sqOutInner,1.0);
+    //fragColor = vec4(sqOutOuter,sqOutOuter,sqOutOuter,1.0);
     //return;
 
     // przemnozyc przez sq bo smoothstep fajnie pokaze gdzie cos jest a gdzie czegos nie ma.
