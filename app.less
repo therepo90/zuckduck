@@ -14,6 +14,7 @@ body {
 }
 
 .canvas-wrapper {
+  position: relative;
   display: flex;
   //align-items: center;
   justify-content: center;
@@ -21,6 +22,9 @@ body {
   height  : 300px;
   //margin: 0 auto;
   outline: none;
+
+  margin: 20px;
+  padding: 20px;
 }
 .renderCanvas {
   display: block;
@@ -31,9 +35,7 @@ body {
   //box-shadow: rgb(255, 0, 0) 0px 0px 53px -24px;
   outline: none;
   /*cursor:none;*/
-  border: 1px solid gray;
-  margin: 20px;
-  padding: 20px;
+  //border: 1px solid gray;
 }
 
 .page-container {
@@ -44,4 +46,18 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: center;
+}
+
+
+.social-button {
+  position: absolute;
+  // center
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 20px;
+  outline: none;
+  background: white;
+  padding: 8px 16px;
+  font-family: Consolas;
+  border-radius: 4px;
 }
