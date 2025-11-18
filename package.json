@@ -17,6 +17,7 @@
     "@parcel/transformer-glsl": "^2.12.0",
     "@parcel/transformer-less": "^2.12.0",
     "@parcel/transformer-raw": "^2.16.1",
+    "buffer": "^6.0.3",
     "cross-env": "^7.0.3",
     "eslint": "8",
     "less": "^4.2.0",
