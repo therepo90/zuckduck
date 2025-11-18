@@ -99,10 +99,12 @@ vec3 laserComposition(vec2 uv, vec2 mouse) {
 
 }
 
-float spookyCircle(vec2 uv, vec2 center, float circleSize, float edge) {
+float spookyCircle(vec2 uv, vec2 center, float circleSize, float edge, out float sqOutInner) {
     float dist = length(uv - center);
-    float circleVal = smoothstep(circleSize - edge, circleSize, dist);
-    return circleVal;
+    float inner = smoothstep(circleSize - edge, circleSize, dist);
+    float outer = 1.-smoothstep(circleSize, circleSize+edge, dist);
+    sqOutInner = inner;
+    return inner * outer;
 }
 
 float spookyRect(vec2 uv, vec2 center, float squareSize, float edge) {
@@ -123,14 +125,14 @@ void logoImage(out vec4 fragColor, in vec2 uv) // -1 to 1
     fragColor = vec4(col,1.0);
 }
 
-void processLogoCircle( out vec4 fragColor, in vec2 uv, out float sqOut, in vec3 tint, in float circleSize, in vec2 center ) {
+void processLogoCircle( out vec4 fragColor, in vec2 uv, out float sqOut, in vec3 tint, in float circleSize, in vec2 center, out float sqOutInner ) {
 
     vec2 mouse = iMouse.xy / iResolution.xy;
     vec3 col=vec3(0);
 
     vec3 barCol=tint;
     float t = iTime;
-    float edge = 0.3;
+    float edge = 0.15;
 
     // Polar coords cause we want to move borders outside like in a circle
     float d = length(uv); // dist
@@ -142,22 +144,29 @@ void processLogoCircle( out vec4 fragColor, in vec2 uv, out float sqOut, in vec3
 
     vec2 changedUv = uv;
     changedUv+=sinVal; // czyli nie uzywam tych fancy unity fns tylko tak. no spoko
-    float sq = spookyCircle(changedUv, center, circleSize, edge);
+    float sq = spookyCircle(changedUv, center, circleSize, edge, sqOutInner);
 
     //vec3 tex =texture2D(iChannel0,uv).xyz * (abs(sin(iTime*0.3)) +0.5);
     vec3 sqCol= sq*barCol* (1.+pow(sq,15.)); // fade to tint color fast.
     //col=mix(tex, sqCol,sq);
 
 
+
     col = sqCol;
 
-    //col+=vec3(1.) * pow(sq,3.); // fade to white at the end
+    col+=vec3(1.) * pow(sq,8.); // fade to white at the end
 
 
 
-    sqOut = sq;
-    float a = 1.0;
-    a = smoothstep(1.0,0.99,sq);
+    sqOut = sq; //we interested only in inner
+
+    //fragColor = vec4(sqOutInner,sqOutInner,sqOutInner,1.0);
+    //return;
+
+    // przemnozyc przez sq bo smoothstep fajnie pokaze gdzie cos jest a gdzie czegos nie ma.
+
+    float a = sqOutInner;
+    //a = smoothstep(1.0,0.99,sq);
     //if(sq<{
     //  col.rgb=vec3(0.0,0.0,1.0);
     //}
@@ -166,9 +175,9 @@ void processLogoCircle( out vec4 fragColor, in vec2 uv, out float sqOut, in vec3
     //}
     //col*=a; // robi sie szare z jakiegos powodu
 
-    if(a<0.1){
-        col.rgb=vec3(0.0); // dziadostwo no ale zostaja se kolory ktore dodajemy, a chcemy je usunac. powinno byc inaczej jakos.
-    }
+    //if(a<0.1){
+//        col.rgb=vec3(0.0); // dziadostwo no ale zostaja se kolory ktore dodajemy, a chcemy je usunac. powinno byc inaczej jakos.
+//    }
 
     // Tu mozna fajnie przeplatac kolory.
     fragColor = vec4(col,a);
@@ -254,15 +263,16 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
 
   vec4 logoBorderColor;
   float logoBorderSq;
+  float logoBorderSqInner;
   float circleSize = 0.5;
   vec2 center = vec2(0,0);
-  processLogoCircle(logoBorderColor, uv, logoBorderSq, laserTint, circleSize, center);
+  processLogoCircle(logoBorderColor, uv, logoBorderSq, laserTint, circleSize, center, logoBorderSqInner);
 
     vec4 logoCol;
     vec2 uvLogo = fragCoord/iResolution.xy;//
     logoImage(logoCol, uvLogo * 2. + 0.5); //circle jest 2 razy mniejsze i jest w srodku(zalezy od circlesize i center lawl)
 
-    fragColor += logoCol* (1.-logoBorderSq);//mix(col, logoCol.rgb, sq);
+    fragColor += logoCol* (1.-logoBorderSqInner);//mix(col, logoCol.rgb, sq);
    fragColor += logoBorderColor*logoBorderSq;//mix(mainCol, borderColor, sq);
   //fragColor += borderColor2*sq2;//mix(mainCol, borderColor, sq);
     //fragColor += mainCol;
