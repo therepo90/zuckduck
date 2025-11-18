@@ -269,8 +269,19 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
   processLogoCircle(logoBorderColor, uv, logoBorderSq, laserTint, circleSize, center, logoBorderSqInner);
 
     vec4 logoCol;
-    vec2 uvLogo = fragCoord/iResolution.xy;//
-    logoImage(logoCol, uvLogo * 2. + 0.5); //circle jest 2 razy mniejsze i jest w srodku(zalezy od circlesize i center lawl)
+    vec2 uvLogoOrigin = fragCoord/iResolution.xy;//
+    vec2 uvLogo = uvLogoOrigin * 2. + 0.5;
+
+    float d = length(uvLogo); // dist
+    float alpha = atan(uvLogo.y, uvLogo.x); //-pi to pi, //angle
+    vec2 pc = vec2(d, alpha); // polar coords holding (dist, angle)
+    float t = iTime;
+
+    //fancy calc or irregular shape
+    float sinVal = sin(pc.y*1.+t*2.)*sin(pc.x*9.+t*3.)*0.0035 ;
+
+    uvLogo+=sinVal;
+    logoImage(logoCol, uvLogo); //circle jest 2 razy mniejsze i jest w srodku(zalezy od circlesize i center lawl)
 
     fragColor += logoCol* (1.-logoBorderSqInner);//mix(col, logoCol.rgb, sq);
    fragColor += logoBorderColor*logoBorderSq;//mix(mainCol, borderColor, sq);
