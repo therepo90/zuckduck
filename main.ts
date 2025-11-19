@@ -81,13 +81,21 @@ window.addEventListener('DOMContentLoaded', function () {
     // --- BEGIN ZUCKCRY OVERLAY LOGIC ---
     function showZuckCryOverlay() {
         const overlay = document.getElementById('zuckcry-overlay');
+        const audio = document.getElementById('zuckcry-audio') as HTMLAudioElement;
         if (!overlay) return;
-        overlay.style.transition = 'opacity 0.7s';
+        if (audio) {
+            audio.currentTime = 0;
+            audio.play();
+        }
+        overlay.style.transition = 'opacity 4s';
         overlay.style.opacity = '1';
         setTimeout(() => {
             overlay.style.transition = 'opacity 1s';
             overlay.style.opacity = '0';
-        }, 1200); // 0.7s fade in + 0.5s visible
+            if (audio) {
+                setTimeout(() => { audio.pause(); audio.currentTime = 0; }, 2000);
+            }
+        }, 4000); // 0.7s fade in + 0.5s visible
     }
     // --- END ZUCKCRY OVERLAY LOGIC ---
 
