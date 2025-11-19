@@ -219,7 +219,6 @@ body {
 }
 
 .canvas-wrapper {
-  touch-action: none;
   outline: none;
   justify-content: center;
   width: 300px;
@@ -231,10 +230,12 @@ body {
 }
 
 .renderCanvas {
+  pointer-events: auto;
   outline: none;
   width: 100%;
   height: 100%;
   display: block;
+  touch-action: auto !important;
 }
 
 .page-container {

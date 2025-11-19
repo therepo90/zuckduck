@@ -25,7 +25,6 @@ body {
 
   margin: 20px;
   padding: 20px;
-  touch-action: none;
 }
 .renderCanvas {
   display: block;
@@ -35,6 +34,8 @@ body {
   //box-shadow: 0 0 10px rgb(255 0 0);
   //box-shadow: rgb(255, 0, 0) 0px 0px 53px -24px;
   outline: none;
+  touch-action: auto !important;
+  pointer-events: auto;
   /*cursor:none;*/
   //border: 1px solid gray;
 }
