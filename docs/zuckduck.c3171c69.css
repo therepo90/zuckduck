@@ -219,6 +219,7 @@ body {
 }
 
 .canvas-wrapper {
+  touch-action: none;
   outline: none;
   justify-content: center;
   width: 300px;
