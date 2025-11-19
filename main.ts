@@ -147,4 +147,36 @@ window.addEventListener('DOMContentLoaded', function () {
         updateUI(res);
     })
 
+    // --- BEGIN ZUCK CONTAINER LOGIC ---
+    const fbBtn = document.getElementById('counter-btn-fb');
+    const zuckContainer = document.querySelector('.zuck-container') as HTMLElement;
+    function updateZuckContainer(mouseX: number, mouseY: number) {
+        if (!fbBtn || !zuckContainer) return;
+        const rect = fbBtn.getBoundingClientRect();
+        // Check if mouse is inside the button
+        if (
+            mouseX >= rect.left && mouseX <= rect.right &&
+            mouseY >= rect.top && mouseY <= rect.bottom
+        ) {
+            zuckContainer.style.transform = 'translateX(-50%) translateY(0%)';
+            // transition should be faster
+            zuckContainer.style.transition = 'transform 0.1s ease-out';
+            return;
+        }
+        const btnX = rect.left + rect.width / 2;
+        const btnY = rect.top + rect.height / 2;
+        const dist = Math.sqrt(Math.pow(mouseX - btnX, 2) + Math.pow(mouseY - btnY, 2));
+        // Clamp distance to a reasonable range
+        const minDist = 0;
+        const maxDist = 400; // px
+        const clampedDist = Math.min(Math.max(dist, minDist), maxDist);
+        // Calculate translateY: closer = more visible (translateY from 100% to 0%)
+        const percent = clampedDist / maxDist;
+        const translateY = 100 * percent;
+        zuckContainer.style.transform = `translateX(-50%) translateY(${translateY}%)`;
+    }
+    document.addEventListener('mousemove', function(e) {
+        updateZuckContainer(e.clientX, e.clientY);
+    });
+    // --- END ZUCK CONTAINER LOGIC ---
 });
