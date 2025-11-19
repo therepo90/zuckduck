@@ -78,7 +78,21 @@ window.addEventListener('DOMContentLoaded', function () {
     initCanvasEngine(canvas, fbCfg);
     initCanvasEngine(canvas2, instaCfg);
 
+    // --- BEGIN ZUCKCRY OVERLAY LOGIC ---
+    function showZuckCryOverlay() {
+        const overlay = document.getElementById('zuckcry-overlay');
+        if (!overlay) return;
+        overlay.style.transition = 'opacity 0.7s';
+        overlay.style.opacity = '1';
+        setTimeout(() => {
+            overlay.style.transition = 'opacity 1s';
+            overlay.style.opacity = '0';
+        }, 1200); // 0.7s fade in + 0.5s visible
+    }
+    // --- END ZUCKCRY OVERLAY LOGIC ---
+
     document.querySelector('#counter-btn-fb').addEventListener('click', function(e) {
+        showZuckCryOverlay();
         fetch(
         // @ts-ignore
             `${api}/api/up`,
@@ -106,6 +120,7 @@ window.addEventListener('DOMContentLoaded', function () {
     });
 
     document.querySelector('#counter-btn-ig').addEventListener('click', function(e) {
+        showZuckCryOverlay();
         fetch(
             // @ts-ignore
             `${api}/api/up`,
