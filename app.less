@@ -82,6 +82,15 @@ body {
   font-size: 16px;
 }
 
+.social-button.fb-escape {
+  transition: transform 0.28s cubic-bezier(0.7,1.7,0.7,1.0), box-shadow 0.2s;
+  transform: translate(-220px, -210px) rotate(-18deg) scale(0.95);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+}
+.social-button.fb-broken {
+  clip-path: polygon(0 0, 26% 0, 92% 51%, 78% 106%, 0 94%);
+  }
+
 .counter {
   font-family: "Pacifico", cursive;
   font-weight: 400;
@@ -123,7 +132,7 @@ body {
   left: 50%;
   transform: translateX(-50%) translateY(100%);
   text-align: center;
-  transition: transform 0.5s ease-in-out;
+  transition: transform 0.25s ease-in-out;
 
   .showing {
     //transform: translateX(-50%) translateY(0%);

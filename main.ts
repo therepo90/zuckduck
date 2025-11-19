@@ -153,14 +153,35 @@ window.addEventListener('DOMContentLoaded', function () {
     function updateZuckContainer(mouseX: number, mouseY: number) {
         if (!fbBtn || !zuckContainer) return;
         const rect = fbBtn.getBoundingClientRect();
-        // Check if mouse is inside the button
+        // Check if mouse is very close to the button
         if (
-            mouseX >= rect.left && mouseX <= rect.right &&
-            mouseY >= rect.top && mouseY <= rect.bottom
+            mouseX >= rect.left - 20 &&
+            mouseX <= rect.right + 20 &&
+            mouseY >= rect.top - 20 &&
+            mouseY <= rect.bottom + 20
         ) {
             zuckContainer.style.transform = 'translateX(-50%) translateY(0%)';
             // transition should be faster
             zuckContainer.style.transition = 'transform 0.1s ease-out';
+
+        }
+        if (
+            mouseX >= rect.left &&
+            mouseX <= rect.right &&
+            mouseY >= rect.top &&
+            mouseY <= rect.bottom
+        ) {
+
+            fbBtn.classList.add('fb-escape');
+            fbBtn.classList.add('fb-broken');
+            //hide zuck
+            if (zuckContainer) {
+                zuckContainer.style.transform = 'translateX(-50%) translateY(100%)';
+                //remove transition style
+                zuckContainer.style.transition = '';
+                //remove popup
+                document.removeEventListener('mousemove', zuckMoveHandler);
+            }
             return;
         }
         const btnX = rect.left + rect.width / 2;
@@ -175,8 +196,14 @@ window.addEventListener('DOMContentLoaded', function () {
         const translateY = 100 * percent;
         zuckContainer.style.transform = `translateX(-50%) translateY(${translateY}%)`;
     }
-    document.addEventListener('mousemove', function(e) {
+
+    const zuckMoveHandler = function(e: any) {
         updateZuckContainer(e.clientX, e.clientY);
-    });
+    }
+
+    document.addEventListener('mousemove', zuckMoveHandler);
     // --- END ZUCK CONTAINER LOGIC ---
+
+    // --- BEGIN FB BUTTON ESCAPE LOGIC ---
+    // --- END FB BUTTON ESCAPE LOGIC ---
 });
