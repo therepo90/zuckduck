@@ -59,6 +59,11 @@ function initCanvasEngine(canvas: any, cfg: any) {
     }, 50); // some fancy bug;
 }
 
+function updateUI(res) {
+    document.querySelector('#counter-fb').textContent = res.fb;
+    document.querySelector('#counter-ig').textContent = res.ig;
+}
+
 window.addEventListener('DOMContentLoaded', function () {
     const canvas = document.getElementById('renderCanvas') as any;
     const canvas2 = document.getElementById('renderCanvas2') as any;
@@ -85,6 +90,18 @@ window.addEventListener('DOMContentLoaded', function () {
                 body: JSON.stringify({
                     type: 'fb'
                 }),
+            })
+            .then(res => {
+                if (!res.ok) {
+                    alert('You have already deleted Facebook. Gj bro.');
+                }else{
+                    return res.json()
+                }
+            })
+            .then(res => {
+                if(res){
+                    updateUI(res);
+                }
             });
     });
 
@@ -100,6 +117,19 @@ window.addEventListener('DOMContentLoaded', function () {
                 body: JSON.stringify({
                     type: 'ig'
                 }),
+            })
+            .then(res => {
+                if (!res.ok) {
+                    alert('You have already deleted ig. Gj M8.');
+                }
+                else{
+                    return res.json()
+                }
+            })
+            .then(res => {
+                if(res){
+                    updateUI(res);
+                }
             });
     });
 
@@ -114,8 +144,7 @@ window.addEventListener('DOMContentLoaded', function () {
         }).then(res => {
             return res.json()
         }).then(res => {
-            document.querySelector('#counter-fb').textContent = res.fb;
-            document.querySelector('#counter-ig').textContent = res.ig;
+        updateUI(res);
     })
 
 });
